@@ -1,0 +1,1373 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdobeSignatureV6</name>
+    </assembly>
+    <members>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetBaseURI">
+            <summary>
+            Gets the base uri to access other APIs. In case other APIs are accessed from a different end point, it will be considered an invalid request
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.CreateAgreement(AdobeSignatureV6.AgreementInfo)">
+            <summary>
+            This is a primary endpoint which is used to create a new agreement. An agreement can be created using transientDocument, libraryDocument or a URL. You can create an agreement in one of the 3 mentioned states: a) DRAFT - to incrementally build the agreement before sending out, b) AUTHORING - to add/edit form fields in the agreement, c) IN_PROCESS - to immediately send the agreement. You can use the PUT /agreements/{agreementId}/state endpoint to transition an agreement between the above mentioned states. An allowed transition would follow the following sequence: DRAFT -> AUTHORING -> IN_PROCESS -> CANCELLED.
+            </summary>
+            <param name="agreementInfo">Information about the agreement that you want to create.</param>
+            <returns> Respone Class: AdobeSignatureV6.AgreementCreationResponse </returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateAgreement(System.String,AdobeSignatureV6.AgreementInfo)">
+            <summary>
+            Updates the agreement in draft state, or update the expirationTime on an existing agreement that is already out for signature
+            </summary>
+            <param name="agreeementID">The agreement identifier</param>
+            <param name="agreementInfo">Information necessary to update a modifiable agreement that is presently out for signature</param>
+            <returns>Empty string if success else gives an error message</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.CancelAgreement(System.String,AdobeSignatureV6.AgreementStateInfo)">
+            <summary>
+            This endpoint can be used by originator/sender of an agreement to transition between the states of agreement. An allowed transition would follow the following sequence: DRAFT -> AUTHORING -> IN_PROCESS -> CANCELLED.
+            </summary>
+            <param name="agreeementID">The agreement identifier</param>
+            <param name="agreementStateInfo">The state in which the agreement should land and Cancellation information for the agreement</param>
+            <returns>Empty string if success else gives an error message</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateAgreementVisibility(System.String,AdobeSignatureV6.VisibilityInfo)">
+            <summary>
+            Updates the visibility of an agreement
+            </summary>
+            <param name="agreementId">The agreement identifier</param>
+            <param name="visibilityInfo">Information to update visibility of agreement</param>
+            <returns>Returns eempty string if call is successful else if returns an error message</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateAgreementMergeFieldInfo(System.String,AdobeSignatureV6.FormFieldMergeInfo)">
+            <summary>
+            Set the merge info for an agreement
+            </summary>
+            <param name="agreementId">The agreement identifier</param>
+            <param name="formFieldMergeInfo">A mapping indicating the default values to set for form fields</param>
+            <returns>Returns eempty string if call is successful else if returns an error message</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateAgreementParticipantSetsinfo(System.String,System.String,AdobeSignatureV6.DetailedParticipantSetInfo)">
+            <summary>
+            Updates the participant set of an agreement identified by agreementId in the path
+            </summary>
+            <param name="agreementId">The agreement identifier</param>
+            <param name="participantSetId">The participant set identifier</param>
+            <param name="detailedParticipantSetInfo">The new participant set info</param>
+            <returns>Returns eempty string if call is successful else if returns an error message</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.RejectAgreementForParticipant(System.String,System.String,System.String,AdobeSignatureV6.AgreementRejectionInfo)">
+            <summary>
+            Rejects the agreement for a participant
+            </summary>
+            <param name="agreementId">The agreement identifier</param>
+            <param name="participantSetId">The participant set identifier</param>
+            <param name="participantId">The participant identifier</param>
+            <param name="agreementRejectionInfo">Participant rejection information required for rejecting the agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateAgreementForParticipantSetSecurityOptions(System.String,System.String,System.String,AdobeSignatureV6.ParticipantSecurityOption)">
+            <summary>
+            Updates the security options for a particular participant
+            </summary>
+            <param name="agreementId">The agreement identifier</param>
+            <param name="participantSetId">The participant set identifier</param>
+            <param name="participantId">The participant identifier</param>
+            <param name="participantSecurityOption">Security options that apply to the participant</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateAgreementReminder(System.String,System.String,AdobeSignatureV6.ReminderInfo)">
+            <summary>
+            You can only update an ACTIVE reminder, and can only update the status to 'CANCELED', update reminderParticipantIds, or update note
+            </summary>
+            <param name="agreementId">The agreement identifier</param>
+            <param name="reminderId">The reminder identifier</param>
+            <param name="reminderInfo">The information about a reminder associated with a recipient of an agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateAgreementNote(System.String,AdobeSignatureV6.Note)">
+            <summary>
+            Updates the latest note associated with an agreement
+            </summary>
+            <param name="agreementId">The agreement identifier</param>
+            <param name="note">The note to be associated with the agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.ShareAgreement(System.String,AdobeSignatureV6.ShareCreationInfoList)">
+            <summary>
+            
+            </summary>
+            /// <param name="agreeementID">The agreement identifier</param>
+            <param name="shareCreationInfoList">List of agreement share creation information objects</param>
+            <returns>Response Class: ShareCreationResponseList</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementList">
+            <summary>
+            Retrieves agreements for the user
+            </summary>
+            <returns>An array of UserAgreement items</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementDetails(System.String)">
+            <summary>
+            Retrieves the current status of an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementCombinedDocument(System.String)">
+            <summary>
+            Gets a single combined PDF document for the documents associated with an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns>A File Stream of combined PDF document</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementCombinedDocumentPagesInfo(System.String)">
+            <summary>
+            Retrieves info of all pages of a combined PDF document for the documents associated with an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns>Response Class: CombinedDocumentPagesInfo</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementCombinedDocumentDocumentURL(System.String)">
+            <summary>
+            Retrieves url of all visible pages of all the documents associated with an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns>Agreement combined document url</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementDocuments(System.String)">
+            <summary>
+            Retrieves the IDs of the documents of an agreement identified by agreementId
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns>Response Class: AgreementDocuments</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementDocumentbyDocumentId(System.String,System.String)">
+            <summary>Retrieves the file stream of a document of an agreement</summary>
+            <param name="agreementID">Agreement identifier</param>
+            <param name="documentID">The document identifier, as retrieved from the API which fetches the documents of a specified agreement</param>
+            <returns>Retrieves the file stream of a document of an agreement</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementDocumentImageUrlsbyDocumentId(System.String,System.String,System.String,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="agreementID">Agreement identifier</param>
+            <param name="documentID">Document identifier</param>
+            <param name="imageSizes">A comma separated list of image sizes i.e. {FIXED_WIDTH_50px, FIXED_WIDTH_250px, FIXED_WIDTH_675px, ZOOM_50_PERCENT, ZOOM_75_PERCENT, ZOOM_100_PERCENT, ZOOM_125_PERCENT, ZOOM_150_PERCENT, ZOOM_200_PERCENT}. Default sizes returned are {FIXED_WIDTH_50px, FIXED_WIDTH_250px, FIXED_WIDTH_675px, ZOOM_100_PERCENT}</param>
+            <param name="showImageAvailabilityOnly">When set to true, returns only image availability. Else, returns both image urls and its availability</param>
+            <param name="startPage">Start of page number range for which imageUrls are requested. Starting page number should be greater than 0</param>
+            <param name="endPage">End of page number range for which imageUrls are requested</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementDocumentImageUrls(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Retrieves image urls of all visible pages of all the documents associated with an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <param name="versionId">The version identifier of agreement as provided by the API</param>
+            <param name="participantId">The participant identifier to be used to retrieve documents</param>
+            <param name="imageSizes">A comma separated list of image sizes</param>
+            <param name="includeSupportingDocumentsImageUrls">When set to true, returns image urls of supporting documents as well. Else, returns image urls of only the original documents</param>
+            <param name="showImageAvailabilityOnly">When set to true, returns only image availability. Else, returns both image urls and its availability</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementEvents(System.String)">
+            <summary>
+            Retrieves the events information for an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns>Response Class: EventList</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementFormFields(System.String)">
+            <summary>
+            Retrieves details of form fields of an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns>Response Class : AgreementFormFields</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementMergeFieldInfo(System.String)">
+            <summary>
+            If agreement is in DRAFT state then it retrieves the merge info stored with an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementNote(System.String)">
+            <summary>
+            Retrieves the latest note associated with an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementReminders(System.String)">
+            <summary>
+            Retrieves the reminders of an agreement, identified by agreementId in the path
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementReminderDetails(System.String,System.String)">
+            <summary>
+            Retrieves a specific reminder associated with an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <param name="reminderID">The reminder identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementSigningUrls(System.String)">
+            <summary>
+            Retrieves the URL for the e-sign page for the current signer(s) of an agreement
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementApiCallerInfo(System.String)">
+            <summary>
+            Retrieves the agreement information related to the api caller
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementFormData(System.String)">
+            <summary>
+            Retrieves data entered into the interactive form fields of the agreement
+            </summary>
+            <param name="agreementID"></param>
+            <returns>string, Accept: text/csv</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementMembersInfo(System.String)">
+            <summary>
+            Retrieves information of members of the agreement
+            </summary>
+            <param name="agreementID"></param>
+            <returns> Response Class : AdobeSignatureV6.MembersInfo  </returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAgreementAuditTrail(System.String)">
+            <summary>
+            Retrieves the audit trail of an agreement identified by agreementId
+            </summary>
+            <param name="agreementID">The agreement identifier</param>
+            <returns>PDF file stream containing audit trail information</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.CreateMegaSignAgreement(AdobeSignatureV6.MegaSignInfo)">
+            <summary>
+            This is a primary endpoint which is used to create a new megaSign. A megaSign can be created using transientDocument, libraryDocument or a URL. You can create a megaSign in IN_PROCESS - Create a megaSign in this state to immediately send it. You can use the PUT/megaSigns/{megaSignId}/state endpoint to transition the state of megaSign. An allowed transition would follow the following sequence: IN_PROCESS -> CANCELLED.
+            </summary>
+            <param name="megaSignCreationRequest">Information about the MegaSign that you want to send</param>
+            <returns>Response Class: MegaSignCreationResponse</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.CancelMegaSignAgreement(System.String,AdobeSignatureV6.MegaSignStateInfo)">
+            <summary>
+            This endpoint can be used by creator of the MegaSign to transition between the states of megaSign. An allowed transition would follow the following sequence : IN_PROCESS->CANCELLED
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement, as returned by the megaSign creation API or retrieved from the API to fetch megaSign agreements</param>
+            <param name="megaSignstatusUpdate">MegaSign state update information object</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateMegaSignAgreement(System.String,AdobeSignatureV6.MegaSignInfo)">
+            <summary>
+            Update the expirationTime on an existing megaSign parent and all the child agreements that are already out for signature
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement</param>
+            <param name="megaSignInfo">Information necessary to update a modifiable megaSign parent that is presently out for signature</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateMegaSignReminder(System.String,System.String,AdobeSignatureV6.ReminderInfo)">
+            <summary>
+            Updates an existing reminder for a MegaSign parent agreement
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement, as returned by the megaSign creation API or retrieved from the API to fetch megaSign agreements</param>
+            <param name="reminderId">The reminder identifier</param>
+            <param name="reminderInfo">The information about a reminder associated with a recipient of an agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateMegaSignNote(System.String,AdobeSignatureV6.Note)">
+            <summary>
+            Updates the latest note of a MegaSign parent agreement for the user
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement</param>
+            <param name="note">The note to be associated with the MegaSign parent agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.ShareMegaSignAgreement(System.String,AdobeSignatureV6.ShareCreationInfoList)">
+            <summary>
+            Share a MegaSign parent and all the child agreements with someone
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement</param>
+            <param name="shareCreationInfoList">List of agreement share creation information objects</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateMegaSignVisibility(System.String,AdobeSignatureV6.VisibilityInfo)">
+            <summary>
+            Updates the visibility of a MegaSign
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement, as returned by the megaSign creation API or retrieved from the API to fetch megaSign agreements</param>
+            <param name="visibilityInfo">Information to update visibility of agreement</param>
+            <returns>Returns eempty string if call is successful else if returns an error message</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignsList">
+            <summary>
+            Retrieves MegaSign parent agreements for a user
+            </summary>
+            <returns>Response Class: MegaSigns</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignDetails(System.String)">
+            <summary>
+            Get detailed information of the specified MegaSign parent agreement
+            </summary>
+            <param name="megaSignID">Response Class: MegaSignInfo</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignChildAgreements(System.String)">
+            <summary>
+            Get all the child agreements of the specified MegaSign parent agreement
+            </summary>
+            <param name="megaSignID">The identifier of the MegaSign parent agreement, as returned by the megaSign creation API or retrieved from the API to fetch megaSign agreements</param>
+            <returns>Response Class: MegaSignChildAgreements</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignFormData(System.String)">
+            <summary>
+            Retrieves data entered by recipients into interactive form fields at the time they signed the child agreements of the specified MegaSign agreement
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement, as returned by the megaSign creation API or retrieved from the API to fetch megaSign agreements</param>
+            <returns>CSV file stream containing form data information</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignChildAgreementInfoFile(System.String,System.String)">
+            <summary>
+            Retrieves the file stream of the original childAgreementsInfoFile that was uploaded by sender while creating the MegaSign
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement</param>
+            <param name="childAgreementsInfoFileId">The identifier of the childAgreementsInfoFile that has been uploaded by sender while creating the megaSign or retrieved from the API to fetch megaSignInfo</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignCombinedDocument(System.String)">
+            <summary>
+            Retrieves a single combined PDF document for the documents associated with the MegaSign parent agreement
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignCombinedDocumentUrl(System.String)">
+            <summary>
+            Retrieves url of all visible pages of all the documents associated with the MegaSign parent agreement
+            </summary>
+            <param name="megaSignID">The identifier of the MegaSign parent agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignEvents(System.String)">
+            <summary>
+            Retrieves the events information for the MegaSign parent agreement
+            </summary>
+            <param name="megaSignID">The identifier of the MegaSign parent agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignNote(System.String)">
+            <summary>
+            Retrieves the latest note of a MegaSign parent agreement for the user
+            </summary>
+            <param name="megaSignID">The identifier of the MegaSign parent agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignDocumentsImageUrls(System.String,System.String,System.Boolean)">
+            <summary>
+            Retrieves image urls of all visible pages of a document associated with a MegaSign parent agreement
+            </summary>
+            <param name="megaSignID">The identifier of the MegaSign parent agreement</param>
+            <param name="imageSizes">A comma separated list of image sizes i.e. {FIXED_WIDTH_50px, FIXED_WIDTH_250px, FIXED_WIDTH_675px, ZOOM_50_PERCENT, ZOOM_75_PERCENT, ZOOM_100_PERCENT, ZOOM_125_PERCENT, ZOOM_150_PERCENT, ZOOM_200_PERCENT}. Default sizes returned are {FIXED_WIDTH_50px, FIXED_WIDTH_250px, FIXED_WIDTH_675px, ZOOM_100_PERCENT}</param>
+            <param name="showImageAvailabilityOnly">When set to true, returns only image availability. Else, returns both image urls and its availability</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignDocuments(System.String)">
+            <summary>
+            Retrieves the IDs of the documents associated with a MegaSign parent agreement
+            </summary>
+            <param name="megaSignID">The identifier of the MegaSign parent agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignDocumentsByDocumentId(System.String,System.String)">
+            <summary>
+            Retrieves the file stream of a document of a MegaSign parent agreement
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement</param>
+            <param name="documentId">The document identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignApiCallerInfo(System.String)">
+            <summary>
+            Retrieves the MegaSign parent agreement information related to the api caller
+            </summary>
+            <param name="megaSignID">The identifier of the MegaSign parent agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignReminders(System.String,System.String)">
+            <summary>
+            Retrieves the reminders of the specified MegaSign parent agreement
+            </summary>
+            <param name="megaSignID">The identifier of the MegaSign parent agreement</param>
+            /// <param name="status">A comma-separated list of reminder statuses of the reminders which should be returned in the response. Currently supported values are ACTIVE, CANCELED, COMPLETE</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetMegaSignMembersInfo(System.String)">
+            <summary>
+            Retrieves detailed member info along with IDs for different types of participants associated with the MegaSign parent agreement
+            </summary>
+            <param name="megaSignID">The identifier of the MegaSign parent agreement, as returned by the megaSign creation API or retrieved from the API to fetch megaSign agreements</param>
+            <returns>Response Class: MegaSignMembersInfo</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.CreateTransientDocument(System.String,System.Byte[],System.String)">
+            <summary>
+            The document uploaded through this call is referred to as transient since it is available only for 7 days after the upload. 
+            The returned transient document ID can be used in the API calls where the uploaded file needs to be referred. 
+            The transient document request is a multipart request consisting of three parts - filename, mime type and the file stream. 
+            You can only upload one file at a time in this request.
+            </summary>
+            <param name="fileName">A name for the document being uploaded. Maximum number of characters in the name is restricted to 255</param>
+            <param name="fileData">byte[]  of the document being uploaded</param>
+            <param name="mimeType">The mime type of the document being uploaded</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.CreateLibraryDocument(AdobeSignatureV6.LibraryDocumentInfo)">
+            <summary>
+            Creates a Templates that is places in the library of the user for resuse
+            </summary>
+            <param name="libraryCreationInfo">Information about the library document that you want to create and authoring options that you want to apply at the time of creation.</param>
+            <returns>Response Class: LibraryDocumentCreationResponse {id (string): The unique identifier that is used to refer to the library template }</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.CancelLibraryDocument(System.String,AdobeSignatureV6.LibraryDocumentStateInfo)">
+            <summary>
+            Currently state can be changed from AUTHORING to ACTIVE, AUTHORING to REMOVED or ACTIVE to REMOVED
+            </summary>
+            <param name="libraryDocumentId">The document identifier, as retrieved from the API to fetch library documents</param>
+            <param name="libraryDocumentStateInfo">Information about the state of library document to which you want to update</param>
+            <returns>Empty string if success else gives an error message</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateLibraryDocumentVisibility(System.String,AdobeSignatureV6.VisibilityInfo)">
+            <summary>
+            Updates the visibility of an LibraryDocument
+            </summary>
+            <param name="libraryDocumentId">The LibraryDocument identifier, as returned by the LibraryDocument creation API or retrieved from the API to fetch LibraryDocument</param>
+            <param name="visibilityInfo">Information to update visibility of LibraryDocument</param>
+            <returns>Returns eempty string if call is successful else if returns an error message</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateLibraryDocument(System.String,AdobeSignatureV6.LibraryDocumentInfo)">
+            <summary>
+            Currently status, name, sharingMode and templateTypes of the library document can only be updated
+            </summary>
+            <param name="libraryDocumentId">The document identifier, as retrieved from the API to fetch library documents</param>
+            <param name="libraryDocumentInfo">Information to update visibility of LibraryDocument</param>
+            <returns>Returns eempty string if call is successful else if returns an error message</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.UpdateLibraryDocumentNote(System.String,AdobeSignatureV6.Note)">
+            <summary>
+            The note to be associated with the library document
+            </summary>
+            <param name="libraryDocumentId">The document identifier</param>
+            <param name="note">The note to be associated with the library document</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryDocuments">
+            <summary>
+            Retrieves library documents for a user
+            </summary>
+            <returns>Response Class: LibraryDocuments</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryDocumentDetails(System.String)">
+            <summary>
+            Retrieves the details of a library document
+            </summary>
+            <param name="libraryDocumentID"></param>
+            <returns>Response Class: LibraryDocumentInfo</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetLibraryCombinedDocument(System.String)">
+            <summary>
+            Retrieves the combined document associated with a library document
+            </summary>
+            <param name="libDocID">The document identifier, as retrieved from the API to fetch library documents</param>
+            <returns>File Stream of PDF file</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetLibraryDocumentAuditTrail(System.String)">
+            <summary>
+            Retrieves url of all visible pages of all the documents associated with a library document
+            </summary>
+            <param name="libDocID">The document identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryTemplateCombinedDocumentUrl(System.String)">
+            <summary>
+            Retrieves url of all visible pages of all the documents associated with a library document
+            </summary>
+            <param name="libraryDocumentID">The document identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryTemplateDocuments(System.String,System.String)">
+            <summary>
+            Retrieves the IDs of the documents associated with library document
+            </summary>
+            <param name="libraryDocumentID">The document identifier</param>
+            <param name="versionId">The version identifier of library_document as provided by the API</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryTemplateDocumentByDocumentId(System.String,System.String)">
+            <summary>
+            Retrieves the file stream of a document of library document
+            </summary>
+            <param name="libraryDocumentID">The document identifier</param>
+            <param name="documentId">The document identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryTemplateFormData(System.String)">
+            <summary>
+            Retrieves data entered into the interactive form fields of the library document
+            </summary>
+            <param name="libraryDocumentID">The document identifier</param>        
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryTemplateDocuments(System.String)">
+            <summary>
+            Retrieves information of members (creator) of the library document
+            </summary>
+            <param name="libraryDocumentID">The document identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryTemplateApiCallerInfo(System.String)">
+            <summary>
+            Retrieves the library document information related to the api caller
+            </summary>
+            <param name="libraryDocumentID">The document identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryTemplateEvents(System.String)">
+            <summary>
+            Retrieves the events information for a library document
+            </summary>
+            <param name="libraryDocumentID">The document identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetlibraryTemplateNote(System.String)">
+            <summary>
+            Retrieves the latest note of a library document for the API user
+            </summary>
+            <param name="libraryDocumentID">The document identifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.SendAgreementReminder(System.String,AdobeSignatureV6.ReminderInfo)">
+            <summary>
+            Creates a reminder on the specified participants of an agreement identified by agreementId in the path
+            </summary>
+            <param name="agreementId">The agreement identifier</param>
+            <param name="reminderInfo">The information about a reminder associated with a recipient of an agreement</param>
+            <returns>Response Class: ReminderCreationResult</returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.SendMegaSignReminder(System.String,AdobeSignatureV6.ReminderInfo)">
+            <summary>
+            Retrieves the reminders of the specified MegaSign parent agreement
+            </summary>
+            <param name="megaSignId">The identifier of the MegaSign parent agreement, as returned by the megaSign creation API or retrieved from the API to fetch megaSign agreements</param>
+            <param name="reminderInfo">The information about a reminder associated with a recipient of an agreement</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.AddMergeFieldInfo(AdobeSignatureV6.AgreementInfo,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Dynamically add the megeFieldInfor for all the items in the Dictionary mergefields
+            </summary>
+            <param name="agreementInfo"></param>
+            <param name="mergefields"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdobeSignatureV6.AdobeObject.GetAccessToken(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Get the access token using authorization code
+            </summary>
+            <param name="apiURL">API Uri</param>
+            <param name="authorization_code">Authorization Code - the authorization code obtained in Authorization Request process</param>
+            <param name="clientid">Application ID - obtained from OAuth Configuration page / Identifies the application</param>
+            <param name="client_secret">Client secret key - obtained from OAuth Configuration page / Authenticates the application</param>
+            <param name="redirectURL">Redirect URL - must match the value used during the Authorization Code step / This value must belong to the set of values specified on the OAuth Configuration page</param>        
+            <returns>AccessToken object</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AdobeSignatureV6.AdobeObject.GetAccessTokenByRefreshToken(System.String,System.String,System.String,System.String)" -->
+        <member name="P:AdobeSignatureV6.AgreementInfo.firstReminderDelay">
+            <summary>Integer which specifies the delay in hours before sending the first reminder</summary>
+        </member>
+        <member name="T:AdobeSignatureV6.CombinedDocumentPagesInfo">
+            <summary>Retrieves info of all pages of a combined PDF document for the documents associated with an agreement</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.CombinedDocumentPagesInfo.documentPagesInfo">
+            <summary>List of basic information of all pages of the combined document of an Agreement</summary>
+        </member>
+        <member name="T:AdobeSignatureV6.DocumentPageInfo">
+            <summary>Document pages information</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.DocumentPageInfo.height">
+            <summary>Height of the page,</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.DocumentPageInfo.index">
+            <summary>Index of the page in combined document starting from 1</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.DocumentPageInfo.rotation">
+            <summary>Rotation angle of the page in clockwise direction in degree</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.DocumentPageInfo.width">
+            <summary>Width of page</summary>
+        </member>
+        <member name="T:AdobeSignatureV6.MyAgreementInfo">
+            <summary></summary>
+        </member>
+        <member name="T:AdobeSignatureV6.CommonViewConfiguration">
+            <summary>Common view configuration for all the available views</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.CommonViewConfiguration.autoLoginUser">
+            <summary>Auto LogIn Flag. If true, the URL returned will automatically log the user in. If false, the URL returned will require the credentials. By default its value is false</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.CommonViewConfiguration.locale">
+            <summary>Message template locale</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.CommonViewConfiguration.noChrome">
+            <summary>No Chrome Flag. If true, the embedded page is shown without a navigation header or footer. If false, the standard page header and footer will be present. By default its value is false</summary>
+        </member>
+        <member name="T:AdobeSignatureV6.FileUploadOptions">
+            <summary>Controls various file upload options available on the compose page</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.FileUploadOptions.libraryDocument">
+            <summary>Whether library documents link should appear or not. Default value is taken as true</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.FileUploadOptions.localFile">
+            <summary>Whether local file upload button should appear or not. Default value is taken as true</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.FileUploadOptions.webConnectors">
+            <summary>Whether link to attach documents from web sources like Dropbox should appear or not. Default value is taken as true</summary>
+        </member>
+        <member name="T:AdobeSignatureV6.ComposeViewConfiguration">
+            <summary>Compose page view configuration</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.ComposeViewConfiguration.fileUploadOptions">
+            <summary>Controls various file upload options available on the compose page</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.ComposeViewConfiguration.isPreviewSelected">
+            <summary>Should the compose page be provided with authoring mode selected?</summary>
+        </member>
+        <member name="T:AdobeSignatureV6.AgreementViewInfo">
+            <summary>Name of the required view and its desired configuration.</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.AgreementViewInfo.name">
+            <summary>['COMPOSE' or 'MODIFY' or 'PREFILL' or 'AUTHORING' or 'SEND_PROGRESS' or 'POST_CREATE' or 'DOCUMENT' or 'MANAGE' or 'SIGNING' or 'ALL']: Name of the requested agreement view</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.AgreementViewInfo.commonViewConfiguration">
+            <summary>Common view configuration for all the available views</summary>
+        </member>
+        <member name="P:AdobeSignatureV6.AgreementViewInfo.composeViewConfiguration">
+            <summary>Compose page view configuration</summary>
+        </member>
+        <member name="T:AdobeSignatureV6.AuthorizationScope">
+            <summary>
+            Authorization Scope to get the authorization code
+            https://secure.in1.echosign.com/public/static/oauthDoc.jsp#scopes
+            </summary>
+        </member>
+        <member name="F:AdobeSignatureV6.Result.REMINDER_SENT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Result.CANCELLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Result.ALREADY_SIGNED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Result.ALREADY_CANCELLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Result.INVALID_DOCUMENT_KEY">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Result.INVALID_API_KEY">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserVerificationStatus.VALID">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserVerificationStatus.DOES_NOT_EXIST">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserVerificationStatus.INVALID_PASSWORD">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserVerificationStatus.UNVERIFIED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AuthenticationMethod.NONE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AuthenticationMethod.INHERITED_FROM_DOCUMENT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AuthenticationMethod.PASSWORD">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AuthenticationMethod.WEB_IDENTITY">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AuthenticationMethod.KBA">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AuthenticationMethod.PHONE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ReminderFrequency.DAILY_UNTIL_SIGNED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ReminderFrequency.WEEKLY_UNTIL_SIGNED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ReminderFrequency.NEVER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AppliesTo.NONE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AppliesTo.EXTERNAL_USERS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AppliesTo.INTERNAL_USERS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AppliesTo.ALL_USERS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.SignatureFlow.SENDER_SIGNS_LAST">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.SignatureFlow.SENDER_SIGNS_FIRST">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.SignatureFlow.SENDER_SIGNATURE_NOT_REQUIRED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.SignatureFlow.SENDER_SIGNS_ONLY">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.SignatureFlow.SEQUENTIAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.SignatureFlow.PARALLEL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AccountType.FREE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AccountType.PRO">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AccountType.TEAM">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AccountType.TEAM_TRIAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AccountType.ENTERPRISE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AccountType.ENTERPRISE_TRIAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AccountType.GLOBAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AccountType.GLOBAL_TRIAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserCapabilityFlag.CAN_SEND">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserCapabilityFlag.CAN_SIGN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserCapabilityFlag.CAN_REPLACE_SIGNER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserCapabilityFlag.VAULT_ENABLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserCapabilityFlag.VAULT_PER_AGREEMENT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserCapabilityFlag.OTHER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserRole.API">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserRole.GROUP_ADMIN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserRole.ACCOUNT_ADMIN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserRole.OTHER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.SupportingDocumentContentFormat.NONE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.SupportingDocumentContentFormat.ORIGINAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.SupportingDocumentContentFormat.CONVERTED_PDF">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.EQUALS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.NOT_EQUALS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.LESS_THAN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.LESS_THAN_EQUALS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.GREATER_THAN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.GREATER_THAN_EQUALS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.IN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.NOT_IN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.CONTAINS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.Operator.NOT_CONTAINS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.TextAlignment.LEFT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.TextAlignment.RIGHT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.TextAlignment.CENTER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.BorderStyle.SOLID">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.BorderStyle.DASHED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.BorderStyle.BEVELED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.BorderStyle.INSET">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.BorderStyle.UNDERLINE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.DATA">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNATURE_BLOCK">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNATURE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNER_NAME">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNER_FIRST_NAME">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNER_LAST_NAME">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNER_INITIALS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNER_EMAIL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNER_TITLE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNER_COMPANY">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNATURE_DATE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.AGREEMENT_NAME">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.AGREEMENT_MESSAGE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.TRANSACTION_ID">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.SIGNATURE_STAMP">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ContentType.CALC">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DisplayFormatType.DEFAULT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DisplayFormatType.DATE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DisplayFormatType.NUMBER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.TEXT_FIELD">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.MULTILINE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.PASSWORD">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.RADIO">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.CHECKBOX">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.DROP_DOWN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.LISTBOX">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.SIGNATURE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.PDF_SIGNATURE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.BUTTON">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.BLOCK">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.FILE_CHOOSER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.COMB">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.InputType.UNSUPPORTED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.RadioCheckType.CIRCLE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.RadioCheckType.CHECK">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.RadioCheckType.CROSS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.RadioCheckType.DIAMOND">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.RadioCheckType.SQUARE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.RadioCheckType.STAR">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ShowHide.SHOW">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ShowHide.HIDE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ShowHide.DISABLE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ShowHide.ENABLE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ReusableDocumentStatus.ENABLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ReusableDocumentStatus.DISABLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ReusableDocumentStatus.OTHER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.WAITING_FOR_MY_SIGNATURE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.WAITING_FOR_MY_APPROVAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.OUT_FOR_SIGNATURE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.OUT_FOR_APPROVAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.SIGNED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.APPROVED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.RECALLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.WAITING_FOR_FAXIN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.ARCHIVED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.FORM">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.EXPIRED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.WIDGET">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.WAITING_FOR_AUTHORING">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.SIGNED_IN_ADOBE_ACROBAT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.SIGNED_IN_ADOBE_READER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.WAITING_FOR_MY_DELEGATION">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentListItemUserDocumentStatus.OTHER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibraryTemplateType.DOCUMENT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibraryTemplateType.FORM_FIELD_LAYER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentLibraryItemScope.PERSONAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentLibraryItemScope.SHARED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.DocumentLibraryItemScope.GLOBAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.EmbeddedViewTarget.AGREEMENT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.EmbeddedViewTarget.AGREEMENT_LIST">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.EmbeddedViewTarget.USER_PROFILE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.EmbeddedViewTarget.ACCOUNT_SETTINGS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.CREATED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.UPLOADED_BY_SENDER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.FAXED_BY_SENDER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.PRESIGNED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.SIGNED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.ESIGNED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.DIGSIGNED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.APPROVED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.OFFLINE_SYNC">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.FAXIN_RECEIVED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.SIGNATURE_REQUESTED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.APPROVAL_REQUESTED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.RECALLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.REJECTED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.EXPIRED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.EXPIRED_AUTOMATICALLY">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.SHARED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.EMAIL_VIEWED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.AUTO_CANCELLED_CONVERSION_PROBLEM">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.SIGNER_SUGGESTED_CHANGES">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.SENDER_CREATED_NEW_REVISION">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.PASSWORD_AUTHENTICATION_FAILED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.KBA_AUTHENTICATION_FAILED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.KBA_AUTHENTICATED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.WEB_IDENTITY_AUTHENTICATED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.WEB_IDENTITY_SPECIFIED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.EMAIL_BOUNCED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.WIDGET_ENABLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.WIDGET_DISABLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.DELEGATED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.AUTO_DELEGATED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.REPLACED_SIGNER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.VAULTED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.DOCUMENTS_DELETED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementEventType.OTHER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ParticipantRole.SENDER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ParticipantRole.SIGNER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ParticipantRole.APPROVER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ParticipantRole.CC">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ParticipantRole.DELEGATE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ParticipantRole.SHARE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ParticipantRole.WIDGET_SIGNER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ParticipantRole.OTHER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.WAITING_FOR_MY_SIGNATURE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.WAITING_FOR_MY_APPROVAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.OUT_FOR_SIGNATURE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.SIGNED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.APPROVED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.RECALLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.HIDDEN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.NOT_YET_VISIBLE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.WAITING_FOR_FAXIN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.ARCHIVED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.UNKNOWN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.PARTIAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.FORM">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.WAITING_FOR_AUTHORING">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.OUT_FOR_APPROVAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.WIDGET">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.EXPIRED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.WAITING_FOR_MY_REVIEW">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.IN_REVIEW">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.OTHER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.SIGNED_IN_ADOBE_ACROBAT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.UserAgreementStatus.SIGNED_IN_ADOBE_READER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ScalingType.FIXED_WIDTH">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ScalingType.PERCENT_ZOOM">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementState.AUTHORING">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementState.DRAFT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementState.IN_PROCESS">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementState.ACTIVE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.AgreementState.CANCELLED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.IncludeScalingTypes.ALL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.IncludeScalingTypes.FIXED_WIDTH">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.IncludeScalingTypes.PERCENT_ZOOM">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ComposeDocumentType.SIGN_THEN_DELIVER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ComposeDocumentType.DELIVER_ONLY">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ComposeDocumentType.SIGN_THEN_SEND">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.ComposeDocumentType.SEND_ONLY">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibrarySharingMode.USER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibrarySharingMode.GROUP">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibrarySharingMode.ACCOUNT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibraryState.AUTHORING">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibraryState.ACTIVE">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibraryState.REMOVED">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibraryTemplateTypes.DOCUMENT">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.LibraryTemplateTypes.FORM_FIELD_LAYER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.FormType.NORMAL">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.FormType.WIDGET">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.OptIn.YES">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.OptIn.NO">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.OptIn.UNKNOWN">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.RecipientRoleEnum.SIGNER">
+            <remarks/>
+        </member>
+        <member name="F:AdobeSignatureV6.RecipientRoleEnum.APPROVER">
+            <remarks/>
+        </member>
+    </members>
+</doc>
